@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" fill="none">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="gradCircle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E6DEB; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#7A00FF; stop-opacity:1"></stop>
+    </linearGradient>
+    <linearGradient id="gradAI" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#FF8C00; stop-opacity:1"></stop>
+    </linearGradient>
+    <linearGradient id="gradSmart" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E90FF; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#00FFFF; stop-opacity:1"></stop>
+    </linearGradient>
+    <linearGradient id="gradGPT" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF8C00; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#FFD700; stop-opacity:1"></stop>
+    </linearGradient>
+    <linearGradient id="gradTagline" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#CCCCCC; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:1"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon circle -->
+  <circle cx="70" cy="80" r="35" fill="url(#gradCircle)"></circle>
+  
+  <!-- Inner parabolic shape -->
+  <path d="M45 80 Q70 50, 95 80 Q70 110, 45 80 Z" fill="black" opacity="0.5"></path>
+  
+  <!-- AI text inside parabola -->
+  <text x="70" y="88" font-family="Verdana, Geneva, sans-serif" font-size="20" font-weight="bold" fill="url(#gradAI)" text-anchor="middle">
+    AI
+  </text>
+  
+  <!-- Smart -->
+  <text x="125" y="100" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="bold" fill="url(#gradSmart)">
+    Smart
+  </text>
+  
+  <!-- GPT -->
+  <text x="325" y="100" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="bold" fill="url(#gradGPT)">
+    GPT
+  </text>
+  
+  <!-- Tagline -->
+  <text x="125" y="135" font-family="Verdana, Geneva, sans-serif" font-size="28" font-weight="600" fill="url(#gradTagline)" letter-spacing="2">
+    AI ASSISTANTS
+  </text>
+</svg>
