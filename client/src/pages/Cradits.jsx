@@ -1,17 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { dummyPlans } from "../assets/assets";
+// import { dummyPlans } from "../assets/assets";
+import { useAppContext } from "../contexts/AppContext";
+import toast from "react-hot-toast";
 
 const Credits = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { token, axios } = useAppContext();
+
+  const { fetchUser } = useAppContext();
 
   const fetchPlans = async () => {
-    setPlans(dummyPlans);
+    try {
+      const { data } = await axios.get("/api/credit/plan", {
+        headers: { Authorization: token },
+      });
+      if (data.success) {
+        setPlans(data.plans);
+      } else {
+        toast.error(data.message || "Failed to fetching plans.");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
     setLoading(false);
+  };
+
+  const purchasePlan = async (planId) => {
+    try {
+      const { data } = await axios.post(
+        "/api/credit/purchase",
+        { planId },
+        {
+          headers: { Authorization: token },
+        }
+      );
+      if (data.success) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
     fetchPlans();
+    fetchUser();
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -47,9 +83,16 @@ const Credits = () => {
                 {plan.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
-              </ul> 
+              </ul>
             </div>
-            <button className="mt-6 bg-purple-600 hover:bg-purple-700 action:bg-purple-800 text-white font-medium py-2 rounded transition-colors cursor-pointer">
+            <button
+              onClick={() =>
+                toast.promise(purchasePlan(plan._id), {
+                  loading: "Processing...",
+                })
+              }
+              className="mt-6 bg-purple-600 hover:bg-purple-700 action:bg-purple-800 text-white font-medium py-2 rounded transition-colors cursor-pointer"
+            >
               Buy Now
             </button>
           </div>

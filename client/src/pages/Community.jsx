@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { dummyPublishedImages } from "../assets/assets";
+import { useAppContext } from "../contexts/AppContext";
+import toast from "react-hot-toast";
 
 const Community = () => {
-  const [image, setImage] = useState([]);
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { axios } = useAppContext();
 
   const fetchImages = async () => {
-    setImage(dummyPublishedImages);
+    try {
+      const { data } = await axios.get("/api/user/published-images");
+      console.log("Community API Response:", data); // ✅ Debug karo
+
+      if (data.success) {
+        // fix: maybe backend sends "images" instead of "image"
+        setImages(data.images || data.image || []);
+      } else {
+        toast.error(data.message || "Failed to load images");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
     setLoading(false);
   };
 
@@ -17,14 +31,14 @@ const Community = () => {
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="p-6 pt-12 xl:px-12 2xl:px-20 w-full h-full mx-auto overflow-y-scroll">
+    <div className="p-6 pt-12 xl:px-12 2xl:px-20 w-full mx-auto">
       <h2 className="text-xl font-semibold mb-6 text-gray-800">
         Community Images
-      </h2>  
+      </h2>
 
-      {image.length > 0 ? (
+      {images.length > 0 ? (
         <div className="flex flex-wrap max-sm:justify-center gap-5">
-          {image.map((item, index) => (
+          {images.map((item, index) => (
             <a
               key={index}
               href={item.imageUrl}
@@ -44,7 +58,7 @@ const Community = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-10">No images Available</p>
+        <p className="text-center text-gray-500 mt-10">No images available</p>
       )}
     </div>
   );
